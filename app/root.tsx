@@ -1,13 +1,4 @@
-import {
-  Link,
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-  useCatch,
-} from "remix";
+import { LiveReload, Outlet } from "remix";
 
 export default function App() {
   return (
@@ -31,16 +22,6 @@ export default function App() {
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="">
-                  <i className="ion-compose"></i>&nbsp;New Article
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="">
-                  <i className="ion-gear-a"></i>&nbsp;Settings
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="">
                   Sign in
                 </a>
               </li>
@@ -52,7 +33,6 @@ export default function App() {
             </ul>
           </div>
         </nav>
-
         <Outlet />
         {process.env.NODE_ENV === "development" ? <LiveReload /> : null}
       </body>
