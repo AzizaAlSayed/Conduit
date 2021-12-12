@@ -9,8 +9,8 @@ datasource db {
 
 model User {
   id          String @id @default(uuid())
-  userName    String @unique
-  title       String @unique
+  userName    String
+  title       String
   bio         String
   description String
   tags        String
