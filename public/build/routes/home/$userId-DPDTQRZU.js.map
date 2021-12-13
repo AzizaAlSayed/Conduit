@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:C:\\Users\\laris\\Conduit\\app\\routes\\home\\$userId.tsx?browser", "../../../../app/routes/home/$userId.tsx"],
+  "sourcesContent": ["export { default } from \"C:\\\\Users\\\\laris\\\\Conduit\\\\app\\\\routes\\\\home\\\\$userId.tsx\";", "export default function UserRoute() {\r\n  return (    <div>\r\n    <p>Here's your hilarious joke:</p>\r\n    <p>\r\n      Why don't you find hippopotamuses hiding in trees?\r\n      They're really good at it.\r\n    </p>\r\n  </div>);\r\n}\r\n"],
+  "mappings": ";;;;;;AAAA;;;ACAA;AAAe,qBAAqB;AAClC,SAAY,oCAAC,OAAD,MACV,oCAAC,KAAD,MAAG,gCACH,oCAAC,KAAD,MAAG;AAAA;",
+  "names": []
+}

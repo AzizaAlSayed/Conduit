@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:C:\\Users\\laris\\Conduit\\app\\routes\\home\\$userId.tsx?browser", "../../../../app/routes/home/$userId.tsx"],
+  "sourcesContent": ["export { default } from \"C:\\\\Users\\\\laris\\\\Conduit\\\\app\\\\routes\\\\home\\\\$userId.tsx\";", "import type { LoaderFunction } from \"remix\";\r\nimport { Link, useLoaderData } from \"remix\";\r\nimport type { User } from \"@prisma/client\";\r\nimport { db } from \"~/utils/db.server\";\r\n\r\ntype LoaderData = { user: U };\r\n\r\nexport default function UserRoute() {\r\n  return (\r\n    <div>\r\n      <p>Here's your hilarious joke:</p>\r\n      <p>\r\n        Why don't you find hippopotamuses hiding in trees? They're really good\r\n        at it.\r\n      </p>\r\n    </div>\r\n  );\r\n}\r\n"],
+  "mappings": ";;;;;;AAAA;;;ACAA;AAOe,qBAAqB;AAClC,SACE,oCAAC,OAAD,MACE,oCAAC,KAAD,MAAG,gCACH,oCAAC,KAAD,MAAG;AAAA;",
+  "names": []
+}
