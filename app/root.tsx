@@ -1,4 +1,4 @@
-import { LiveReload, Outlet } from "remix";
+import { LiveReload, Outlet, Scripts } from "remix";
 
 export default function App() {
   return (
@@ -34,6 +34,7 @@ export default function App() {
           </div>
         </nav>
         <Outlet />
+        <Scripts />
         {process.env.NODE_ENV === "development" ? <LiveReload /> : null}
       </body>
     </html>

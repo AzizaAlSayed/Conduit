@@ -19,7 +19,7 @@ export const action: ActionFunction = async ({ request }) => {
   const fields = { comment };
 
   const userInfo = await db.user.create({
-    data: { userName: "larasdad", ...fields },
+    data: { userName: "laraa", ...fields },
   });
   return redirect(`/article/${userInfo.id}`);
 };
