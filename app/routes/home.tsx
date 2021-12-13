@@ -31,9 +31,6 @@ export default function HomeRoute() {
             </p>
           </a>
         </div>
-        <button className="btn btn-outline-primary btn-sm pull-xs-right">
-          <i className="ion-heart"></i> 29
-        </button>
       </div>
       <a href="" className="preview-link">
         <h1>How to build webapps that scale</h1>

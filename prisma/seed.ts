@@ -16,14 +16,17 @@ function getUsers() {
     {
       id :"jndsn",
       userName: "Mohammad Salem",
+      comment:"it is me"
     },
     {
       id :"jnassddsn",
       userName: "Sana Mohammad",
+      comment:"it is me"
     },
     {
       id :"uhuhhu",
       userName: "Remas Samer",
+      comment:"it is me"
     },
   ];
 }
