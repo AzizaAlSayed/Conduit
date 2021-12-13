@@ -22,3 +22,10 @@ export default function UserRoute() {
     </div>
   );
 }
+
+export function ErrorBoundary() {
+  const { userId } = useParams();
+  return (
+    <div className="error-container">{`There was an error loading by the id ${userId}. Sorry.`}</div>
+  );
+}
