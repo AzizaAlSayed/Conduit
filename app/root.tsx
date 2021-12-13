@@ -1,6 +1,12 @@
-import { LiveReload, Outlet, Scripts } from "remix";
+import { LiveReload, Outlet } from "remix";
 
-export default function App() {
+function Document({
+  children,
+  title = `Remix: So great, it's funny!`,
+}: {
+  children: React.ReactNode;
+  title?: string;
+}) {
   return (
     <html lang="en">
       <head>
@@ -33,10 +39,17 @@ export default function App() {
             </ul>
           </div>
         </nav>
-        <Outlet />
-        <Scripts />
+        {children}
         {process.env.NODE_ENV === "development" ? <LiveReload /> : null}
       </body>
     </html>
+  );
+}
+
+export default function App() {
+  return (
+    <Document>
+      <Outlet />
+    </Document>
   );
 }
