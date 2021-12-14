@@ -2,7 +2,20 @@ import { Link, useLoaderData } from "remix";
 import { LoaderFunction } from "remix";
 import { db } from "~/utils/db.server";
 
+type LoaderData = {
+  userListItems: Array<{ id: string; userName: string }>;
+};
+
+export const loader: LoaderFunction = async () => {
+  const data: LoaderData = {
+    userListItems: await db.user.findMany(),
+  };
+  return data;
+};
+
 export default function Profile() {
+  const data = useLoaderData<LoaderData>();
+
   return (
     <div className="profile-page">
       <div className="user-info">
@@ -54,4 +67,8 @@ export default function Profile() {
       </div>
     </div>
   );
+}
+
+export function ErrorBoundary() {
+  return <div className="error-container">I did a whoopsies.</div>;
 }

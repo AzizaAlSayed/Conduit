@@ -15,15 +15,15 @@ function getUsers() {
   return [
     {
       id :"jndsn",
-      userName: "Mohammad Salem",
+      userName: "MohammadSalem",
     },
     {
       id :"jnassddsn",
-      userName: "Sana Mohammad",
+      userName: "SanaMohammad",
     },
     {
       id :"uhuhhu",
-      userName: "Remas Samer",
+      userName: "RemasSamer",
     },
   ];
 }

@@ -1,5 +1,5 @@
 {
-  "version": "e6373010",
+  "version": "d1940a7d",
   "entry": {
     "module": "/build/entry.client-3ZKYRWEH.js",
     "imports": [
@@ -10,17 +10,17 @@
     "root": {
       "id": "root",
       "path": "",
-      "module": "/build/root-5QDVNNSQ.js",
+      "module": "/build/root-ONGQOUNM.js",
       "hasAction": false,
       "hasLoader": false,
       "hasCatchBoundary": false,
-      "hasErrorBoundary": false
+      "hasErrorBoundary": true
     },
     "routes/home": {
       "id": "routes/home",
       "parentId": "root",
       "path": "home",
-      "module": "/build/routes/home-6HU66LRR.js",
+      "module": "/build/routes/home-U3PR4YRD.js",
       "imports": [
         "/build/_shared/chunk-MPIXIEDY.js"
       ],
@@ -33,15 +33,25 @@
       "id": "routes/profile",
       "parentId": "root",
       "path": "profile",
-      "module": "/build/routes/profile-23MZRDGM.js",
+      "module": "/build/routes/profile-PZLKC2SO.js",
       "imports": [
         "/build/_shared/chunk-MPIXIEDY.js"
       ],
       "hasAction": false,
       "hasLoader": true,
       "hasCatchBoundary": false,
-      "hasErrorBoundary": false
+      "hasErrorBoundary": true
+    },
+    "routes/profile/$userName": {
+      "id": "routes/profile/$userName",
+      "parentId": "routes/profile",
+      "path": ":userName",
+      "module": "/build/routes/profile/$userName-VHCZFWNE.js",
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": true
     }
   },
-  "url": "/build/manifest-E6373010.js"
+  "url": "/build/manifest-D1940A7D.js"
 }
