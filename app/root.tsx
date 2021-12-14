@@ -19,6 +19,7 @@ function Document({
   children: React.ReactNode;
   title?: string;
 }) {
+    
   return (
     <html lang="en">
       <head>
@@ -88,5 +89,6 @@ export function CatchBoundary() {
         </h1>
       </div>
     </Document>
+        <Outlet />
   );
 }
