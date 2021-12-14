@@ -7,7 +7,6 @@ import {
   Links,
   useCatch,
 } from "remix";
-
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: "//demo.productionready.io/main.css" }];
 };
