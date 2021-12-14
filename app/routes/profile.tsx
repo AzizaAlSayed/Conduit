@@ -15,7 +15,6 @@ export const loader: LoaderFunction = async () => {
 
 export default function Profile() {
   const data = useLoaderData<LoaderData>();
-
   return (
     <div className="profile-page">
       <div className="user-info">

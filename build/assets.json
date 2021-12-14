@@ -1,5 +1,5 @@
 {
-  "version": "d1940a7d",
+  "version": "9e894198",
   "entry": {
     "module": "/build/entry.client-3ZKYRWEH.js",
     "imports": [
@@ -33,7 +33,7 @@
       "id": "routes/profile",
       "parentId": "root",
       "path": "profile",
-      "module": "/build/routes/profile-PZLKC2SO.js",
+      "module": "/build/routes/profile-NSUPXFCG.js",
       "imports": [
         "/build/_shared/chunk-MPIXIEDY.js"
       ],
@@ -53,5 +53,5 @@
       "hasErrorBoundary": true
     }
   },
-  "url": "/build/manifest-D1940A7D.js"
+  "url": "/build/manifest-9E894198.js"
 }
