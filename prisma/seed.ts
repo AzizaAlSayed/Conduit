@@ -9,8 +9,6 @@ async function seed() {
   );
 }
 
-
-
 seed();
 
 function getUsers() {
