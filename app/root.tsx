@@ -15,9 +15,7 @@ function Document({
   children,
   title = `Conduit`,
 }: {
-  children: React.ReactNode;
-  title?: string;
-}) {
+  children: React.ReactNode; title?: string;}) {
   return (
     <html lang="en">
       <head>

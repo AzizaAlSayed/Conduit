@@ -1,20 +1,9 @@
 import { Link, useLoaderData } from "remix";
 import { LoaderFunction } from "remix";
 import { db } from "~/utils/db.server";
+import type { User } from "@prisma/client";
 
-type LoaderData = {
-  userListItems: Array<{ id: string; userName: string }>;
-};
-
-export const loader: LoaderFunction = async () => {
-  const data: LoaderData = {
-    userListItems: await db.user.findMany(),
-  };
-  return data;
-};
-
-export default function Profile() {
-  const data = useLoaderData<LoaderData>();
+export default function Profile({ children }: { children: React.ReactNode }) {
   return (
     <div className="profile-page">
       <div className="user-info">
@@ -25,12 +14,11 @@ export default function Profile() {
                 src="https://i.redd.it/a6g2v0xi0pe41.png"
                 className="user-img"
               />
-              <h4>Eric Simons</h4>
+              <h4> {children}</h4>
             </div>
           </div>
         </div>
       </div>
-
       <div className="container">
         <div className="row">
           <div className="col-xs-12 col-md-10 offset-md-1">

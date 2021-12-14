@@ -120,34 +120,9 @@ function CatchBoundary() {
 var profile_exports = {};
 __export(profile_exports, {
   ErrorBoundary: () => ErrorBoundary2,
-  default: () => Profile,
-  loader: () => loader
+  default: () => Profile
 });
-var import_remix3 = __toModule(require("remix"));
-
-// app/utils/db.server.ts
-var import_client = __toModule(require("@prisma/client"));
-var db;
-if (process.env.NODE_ENV === "production") {
-  db = new import_client.PrismaClient();
-  db.$connect();
-} else {
-  if (!global.__db) {
-    global.__db = new import_client.PrismaClient();
-    global.__db.$connect();
-  }
-  db = global.__db;
-}
-
-// route-module:C:\Users\laris\Conduit\app\routes\profile.tsx
-var loader = async () => {
-  const data = {
-    userListItems: await db.user.findMany()
-  };
-  return data;
-};
-function Profile() {
-  const data = (0, import_remix3.useLoaderData)();
+function Profile({ children }) {
   return /* @__PURE__ */ React.createElement("div", {
     className: "profile-page"
   }, /* @__PURE__ */ React.createElement("div", {
@@ -161,7 +136,7 @@ function Profile() {
   }, /* @__PURE__ */ React.createElement("img", {
     src: "https://i.redd.it/a6g2v0xi0pe41.png",
     className: "user-img"
-  }), /* @__PURE__ */ React.createElement("h4", null, "Eric Simons"))))), /* @__PURE__ */ React.createElement("div", {
+  }), /* @__PURE__ */ React.createElement("h4", null, " ", children))))), /* @__PURE__ */ React.createElement("div", {
     className: "container"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "row"
@@ -205,13 +180,78 @@ var username_exports = {};
 __export(username_exports, {
   ErrorBoundary: () => ErrorBoundary3,
   default: () => UserProfileRoute,
-  loader: () => loader2
+  loader: () => loader
 });
+var import_remix3 = __toModule(require("remix"));
 var import_remix4 = __toModule(require("remix"));
-var import_remix5 = __toModule(require("remix"));
-var loader2 = async ({ params }) => {
+
+// app/utils/db.server.ts
+var import_client = __toModule(require("@prisma/client"));
+var db;
+if (process.env.NODE_ENV === "production") {
+  db = new import_client.PrismaClient();
+  db.$connect();
+} else {
+  if (!global.__db) {
+    global.__db = new import_client.PrismaClient();
+    global.__db.$connect();
+  }
+  db = global.__db;
+}
+
+// app/routes/profile.tsx
+function Profile2({ children }) {
+  return /* @__PURE__ */ React.createElement("div", {
+    className: "profile-page"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "user-info"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "container"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "row"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "col-xs-12 col-md-10 offset-md-1"
+  }, /* @__PURE__ */ React.createElement("img", {
+    src: "https://i.redd.it/a6g2v0xi0pe41.png",
+    className: "user-img"
+  }), /* @__PURE__ */ React.createElement("h4", null, " ", children))))), /* @__PURE__ */ React.createElement("div", {
+    className: "container"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "row"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "col-xs-12 col-md-10 offset-md-1"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "articles-toggle"
+  }, /* @__PURE__ */ React.createElement("ul", {
+    className: "nav nav-pills outline-active"
+  }, /* @__PURE__ */ React.createElement("li", {
+    className: "nav-item"
+  }, /* @__PURE__ */ React.createElement("a", {
+    className: "nav-link active",
+    href: ""
+  }, "My Articles")))), /* @__PURE__ */ React.createElement("div", {
+    className: "article-preview"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "article-meta"
+  }, /* @__PURE__ */ React.createElement("a", {
+    href: ""
+  }, /* @__PURE__ */ React.createElement("img", {
+    src: "https://i.redd.it/a6g2v0xi0pe41.png"
+  })), /* @__PURE__ */ React.createElement("div", {
+    className: "info"
+  }, /* @__PURE__ */ React.createElement("a", {
+    href: "",
+    className: "author"
+  }, "Eric Simons"))), /* @__PURE__ */ React.createElement("a", {
+    href: "",
+    className: "preview-link"
+  }, /* @__PURE__ */ React.createElement("h1", null, "How to build webapps that scale"), /* @__PURE__ */ React.createElement("p", null, "This is the description for the post."), /* @__PURE__ */ React.createElement("span", null, "Read more...")))))));
+}
+
+// route-module:C:\Users\laris\Conduit\app\routes\profile\$username.tsx
+var loader = async ({ params }) => {
   const user = await db.user.findUnique({
-    where: { id: params.userName }
+    where: { userName: params.userUserName }
   });
   if (!user)
     throw new Error("user not found");
@@ -219,33 +259,31 @@ var loader2 = async ({ params }) => {
   return data;
 };
 function UserProfileRoute() {
-  const data = (0, import_remix5.useLoaderData)();
-  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(import_remix5.Link, {
-    to: "."
-  }, data.user.userName, " "));
+  const data = (0, import_remix4.useLoaderData)();
+  return /* @__PURE__ */ React.createElement(Profile2, null, /* @__PURE__ */ React.createElement("h4", null, data.user.userName));
 }
 function ErrorBoundary3() {
-  const { userName } = (0, import_remix4.useParams)();
+  const { userUserName } = (0, import_remix3.useParams)();
   return /* @__PURE__ */ React.createElement("div", {
     className: "error-container"
-  }, `There was an error loading by the id ${userName}. Sorry.`);
+  }, `There was an error loading by the id ${userUserName}. Sorry.`);
 }
 
 // route-module:C:\Users\laris\Conduit\app\routes\home.tsx
 var home_exports = {};
 __export(home_exports, {
   default: () => HomeRoute,
-  loader: () => loader3
+  loader: () => loader2
 });
-var import_remix6 = __toModule(require("remix"));
-var loader3 = async () => {
+var import_remix5 = __toModule(require("remix"));
+var loader2 = async () => {
   const data = {
     userListItems: await db.user.findMany()
   };
   return data;
 };
 function HomeRoute() {
-  const data = (0, import_remix6.useLoaderData)();
+  const data = (0, import_remix5.useLoaderData)();
   const users = data.userListItems.map((user) => /* @__PURE__ */ React.createElement("div", {
     key: user.id,
     className: "article-preview"
@@ -263,7 +301,7 @@ function HomeRoute() {
   }, /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("a", {
     href: "",
     className: "author"
-  }, /* @__PURE__ */ React.createElement(import_remix6.Link, {
+  }, /* @__PURE__ */ React.createElement(import_remix5.Link, {
     to: user.id
   }, user.userName))))), /* @__PURE__ */ React.createElement("button", {
     className: "btn btn-outline-primary btn-sm pull-xs-right"
