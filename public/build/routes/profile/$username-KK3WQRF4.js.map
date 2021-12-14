@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:C:\\Users\\laris\\Conduit\\app\\routes\\profile\\$username.tsx?browser", "../../../../app/routes/profile/$username.tsx"],
+  "sourcesContent": ["export { ErrorBoundary, default } from \"C:\\\\Users\\\\laris\\\\Conduit\\\\app\\\\routes\\\\profile\\\\$username.tsx\";", "import { LoaderFunction, useParams } from \"remix\";\r\nimport { Link, useLoaderData } from \"remix\";\r\nimport type { User } from \"@prisma/client\";\r\nimport { db } from \"~/utils/db.server\";\r\n\r\ntype LoaderData = { user: User };\r\n\r\nexport const loader: LoaderFunction = async ({ params }) => {\r\n  const user = await db.user.findUnique({\r\n    where: { id: params.us },\r\n  });\r\n  if (!user) throw new Error(\"user not found\");\r\n  const data: LoaderData = { user };\r\n  return data;\r\n};\r\n\r\nexport default function UserProfileRoute() {\r\n  const data = useLoaderData<LoaderData>();\r\n  return (\r\n    <div>\r\n      <Link to=\".\">{data.user.userName} </Link>\r\n    </div>\r\n  );\r\n}\r\n\r\nexport function ErrorBoundary() {\r\n  const { userId } = useParams();\r\n  return (\r\n    <div className=\"error-container\">{`There was an error loading by the id ${userId}. Sorry.`}</div>\r\n  );\r\n}\r\n"],
+  "mappings": ";;;;;;;;;;;;;;;AAAA;;;ACAA;AAGA,gBAAmB;AAaJ,4BAA4B;AACzC,QAAM,OAAO;AACb,SACE,oCAAC,OAAD,MACE,oCAAC,MAAD;AAAA,IAAM,IAAG;AAAA,KAAK,KAAK,KAAK,UAAS;AAAA;AAKhC,yBAAyB;AAC9B,QAAM,EAAE,WAAW;AACnB,SACE,oCAAC,OAAD;AAAA,IAAK,WAAU;AAAA,KAAmB,wCAAwC;AAAA;",
+  "names": []
+}

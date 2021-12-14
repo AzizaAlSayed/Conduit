@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:C:\\Users\\laris\\Conduit\\app\\routes\\profile\\$username.tsx?browser", "../../../../app/routes/profile/$username.tsx"],
+  "sourcesContent": ["export { default } from \"C:\\\\Users\\\\laris\\\\Conduit\\\\app\\\\routes\\\\profile\\\\$username.tsx\";", "export default function UserProfile() {\r\n  return <div></div>;\r\n}\r\n"],
+  "mappings": ";;;;;;AAAA;;;ACAA;AAAe,uBAAuB;AACpC,SAAO,oCAAC,OAAD;AAAA;",
+  "names": []
+}
