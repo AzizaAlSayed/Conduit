@@ -1,4 +1,16 @@
-import { LiveReload, Outlet } from "remix";
+import {
+  LiveReload,
+  Outlet,
+  Scripts,
+  LinksFunction,
+  Meta,
+  Links,
+  useCatch,
+} from "remix";
+
+export const links: LinksFunction = () => {
+  return [{ rel: "stylesheet", href: "//demo.productionready.io/main.css" }];
+};
 
 function Document({
   children,
@@ -12,7 +24,8 @@ function Document({
       <head>
         <meta charSet="utf-8" />
         <title>Conduit</title>
-        <link rel="stylesheet" href="//demo.productionready.io/main.css"></link>
+        <Meta />
+        <Links />
       </head>
       <body>
         <nav className="navbar navbar-light">
@@ -56,10 +69,23 @@ export default function App() {
 
 export function ErrorBoundary({ error }: { error: Error }) {
   return (
-    <Document title="Uh-oh!">
-      <div className="error-container">
+    <Document title="Unexpected Error">
+      <div className="error-messages">
         <h1>App Error</h1>
         <pre>{error.message}</pre>
+      </div>
+    </Document>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+  return (
+    <Document title={`${caught.status} ${caught.statusText}`}>
+      <div className="error-container">
+        <h1>
+          {caught.status} {caught.statusText}
+        </h1>
       </div>
     </Document>
   );

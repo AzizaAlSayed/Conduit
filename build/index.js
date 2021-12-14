@@ -54,10 +54,15 @@ function handleRequest(request, responseStatusCode, responseHeaders, remixContex
 // route-module:C:\Users\laris\Conduit\app\root.tsx
 var root_exports = {};
 __export(root_exports, {
+  CatchBoundary: () => CatchBoundary,
   ErrorBoundary: () => ErrorBoundary,
-  default: () => App
+  default: () => App,
+  links: () => links
 });
 var import_remix2 = __toModule(require("remix"));
+var links = () => {
+  return [{ rel: "stylesheet", href: "//demo.productionready.io/main.css" }];
+};
 function Document({
   children,
   title = `Conduit`
@@ -66,10 +71,7 @@ function Document({
     lang: "en"
   }, /* @__PURE__ */ React.createElement("head", null, /* @__PURE__ */ React.createElement("meta", {
     charSet: "utf-8"
-  }), /* @__PURE__ */ React.createElement("title", null, "Conduit"), /* @__PURE__ */ React.createElement("link", {
-    rel: "stylesheet",
-    href: "//demo.productionready.io/main.css"
-  })), /* @__PURE__ */ React.createElement("body", null, /* @__PURE__ */ React.createElement("nav", {
+  }), /* @__PURE__ */ React.createElement("title", null, "Conduit"), /* @__PURE__ */ React.createElement(import_remix2.Meta, null), /* @__PURE__ */ React.createElement(import_remix2.Links, null)), /* @__PURE__ */ React.createElement("body", null, /* @__PURE__ */ React.createElement("nav", {
     className: "navbar navbar-light"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "container"
@@ -100,10 +102,18 @@ function App() {
 }
 function ErrorBoundary({ error }) {
   return /* @__PURE__ */ React.createElement(Document, {
-    title: "Uh-oh!"
+    title: "Unexpected Error"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "error-messages"
+  }, /* @__PURE__ */ React.createElement("h1", null, "App Error"), /* @__PURE__ */ React.createElement("pre", null, error.message)));
+}
+function CatchBoundary() {
+  const caught = (0, import_remix2.useCatch)();
+  return /* @__PURE__ */ React.createElement(Document, {
+    title: `${caught.status} ${caught.statusText}`
   }, /* @__PURE__ */ React.createElement("div", {
     className: "error-container"
-  }, /* @__PURE__ */ React.createElement("h1", null, "App Error"), /* @__PURE__ */ React.createElement("pre", null, error.message)));
+  }, /* @__PURE__ */ React.createElement("h1", null, caught.status, " ", caught.statusText)));
 }
 
 // route-module:C:\Users\laris\Conduit\app\routes\profile.tsx
@@ -190,9 +200,9 @@ function ErrorBoundary2() {
   }, "I did a whoopsies.");
 }
 
-// route-module:C:\Users\laris\Conduit\app\routes\profile\$userName.tsx
-var userName_exports = {};
-__export(userName_exports, {
+// route-module:C:\Users\laris\Conduit\app\routes\profile\$username.tsx
+var username_exports = {};
+__export(username_exports, {
   ErrorBoundary: () => ErrorBoundary3,
   default: () => UserProfileRoute,
   loader: () => loader2
@@ -309,13 +319,13 @@ var routes = {
     caseSensitive: void 0,
     module: profile_exports
   },
-  "routes/profile/$userName": {
-    id: "routes/profile/$userName",
+  "routes/profile/$username": {
+    id: "routes/profile/$username",
     parentId: "routes/profile",
-    path: ":userName",
+    path: ":username",
     index: void 0,
     caseSensitive: void 0,
-    module: userName_exports
+    module: username_exports
   },
   "routes/home": {
     id: "routes/home",
