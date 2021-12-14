@@ -12,7 +12,6 @@ async function seed() {
 seed();
 
 function getUsers() {
-  // shout-out to https://icanhazdadjoke.com/
   return [
     {
       userName: "Mohammad77",

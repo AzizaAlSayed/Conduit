@@ -1,12 +1,31 @@
-import { LiveReload, Outlet, Scripts } from "remix";
+import {
+  LiveReload,
+  Outlet,
+  Scripts,
+  LinksFunction,
+  Meta,
+  Links,
+  useCatch,
+} from "remix";
 
-export default function App() {
+export const links: LinksFunction = () => {
+  return [{ rel: "stylesheet", href: "//demo.productionready.io/main.css" }];
+};
+
+function Document({
+  children,
+  title = `Conduit`,
+}: {
+  children: React.ReactNode;
+  title?: string;
+}) {
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <title>Remix: So great, it's funny!</title>
-        <link rel="stylesheet" href="//demo.productionready.io/main.css"></link>
+        <title>Conduit</title>
+        <Meta />
+        <Links />
       </head>
       <body>
         <nav className="navbar navbar-light">
@@ -33,10 +52,41 @@ export default function App() {
             </ul>
           </div>
         </nav>
-        <Outlet />
-        <Scripts />
+        {children}
         {process.env.NODE_ENV === "development" ? <LiveReload /> : null}
       </body>
     </html>
+  );
+}
+
+export default function App() {
+  return (
+    <Document>
+      <Outlet />
+    </Document>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  return (
+    <Document title="Unexpected Error">
+      <div className="error-messages">
+        <h1>App Error</h1>
+        <pre>{error.message}</pre>
+      </div>
+    </Document>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+  return (
+    <Document title={`${caught.status} ${caught.statusText}`}>
+      <div className="error-container">
+        <h1>
+          {caught.status} {caught.statusText}
+        </h1>
+      </div>
+    </Document>
   );
 }

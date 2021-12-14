@@ -7,8 +7,7 @@ export const action: ActionFunction = async ({ request }) => {
   const userName = form.get("userName");
   const password = form.get("password");
   const email = form.get("email");
-  // we do this type check to be extra sure and to make TypeScript happy
-  // we'll explore validation next!
+
   if (
     typeof userName !== "string" ||
     typeof password !== "string" ||
@@ -22,7 +21,6 @@ export const action: ActionFunction = async ({ request }) => {
   const userInfo = await db.user.create({
     data: fields,
   });
-  console.log(userInfo);
   return redirect(`/home/${userInfo.id}`);
 };
 export default function RegisterRoute() {
