@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-const db = new PrismaClient();
+const PrismaDb = new PrismaClient();
 
 async function seed() {
   await Promise.all(
     getUsers().map((user) => {
-      return db.user.create({ data: user });
+      return PrismaDb.user.create({ data: user });
     })
   );
 }
@@ -14,16 +14,19 @@ seed();
 function getUsers() {
   return [
     {
-      id :"jndsn",
-      userName: "Mohammad Salem",
+      userName: "Mohammad77",
+      email: "mohammad@gmail.com",
+      password: "lll",
     },
     {
-      id :"jnassddsn",
-      userName: "Sana Mohammad",
+      userName: "Sana99",
+      email: "sana@gmail.com",
+      password: "lll",
     },
     {
-      id :"uhuhhu",
-      userName: "Remas Samer",
+      userName: "Roua88",
+      email: "roua@gmail.com",
+      password: "lll",
     },
   ];
 }

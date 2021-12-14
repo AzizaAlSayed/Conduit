@@ -51,7 +51,6 @@ export default function HomeRoute() {
           <p>A place to share your knowledge.</p>
         </div>
       </div>
-
       <div className="container page">
         <div className="row">
           <div className="col-md-9">
