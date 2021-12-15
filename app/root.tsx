@@ -11,15 +11,10 @@ import {
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: "//demo.productionready.io/main.css" }];
 };
-
 function Document({
   children,
   title = `Conduit`,
 }: {
-  children: React.ReactNode;
-  title?: string;
-}) {
-    
   return (
     <html lang="en">
       <head>
@@ -89,6 +84,5 @@ export function CatchBoundary() {
         </h1>
       </div>
     </Document>
-        <Outlet />
   );
 }

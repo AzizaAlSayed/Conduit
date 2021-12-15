@@ -14,19 +14,16 @@ seed();
 function getUsers() {
   return [
     {
-      userName: "Mohammad77",
-      email: "mohammad@gmail.com",
-      password: "lll",
+      id :"jndsn",
+      userName: "MohammadSalem",
     },
     {
-      userName: "Sana99",
-      email: "sana@gmail.com",
-      password: "lll",
+      id :"jnassddsn",
+      userName: "SanaMohammad",
     },
     {
-      userName: "Roua88",
-      email: "roua@gmail.com",
-      password: "lll",
+      id :"uhuhhu",
+      userName: "RemasSamer",
     },
   ];
 }

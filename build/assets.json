@@ -1,0 +1,57 @@
+{
+  "version": "41327a93",
+  "entry": {
+    "module": "/build/entry.client-O2VNANJW.js",
+    "imports": [
+      "/build/_shared/chunk-SII5VQ3P.js"
+    ]
+  },
+  "routes": {
+    "root": {
+      "id": "root",
+      "path": "",
+      "module": "/build/root-VYJRAKVQ.js",
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": true,
+      "hasErrorBoundary": true
+    },
+    "routes/home": {
+      "id": "routes/home",
+      "parentId": "root",
+      "path": "home",
+      "module": "/build/routes/home-QSSJYB35.js",
+      "imports": [
+        "/build/_shared/chunk-Q5M3GCKU.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/profile": {
+      "id": "routes/profile",
+      "parentId": "root",
+      "path": "profile",
+      "module": "/build/routes/profile-2LWPFNRS.js",
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": true
+    },
+    "routes/profile/$userName": {
+      "id": "routes/profile/$userName",
+      "parentId": "routes/profile",
+      "path": ":userName",
+      "module": "/build/routes/profile/$userName-NDJMIC7P.js",
+      "imports": [
+        "/build/_shared/chunk-Q5M3GCKU.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": true,
+      "hasErrorBoundary": true
+    }
+  },
+  "url": "/build/manifest-41327A93.js"
+}

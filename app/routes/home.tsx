@@ -6,9 +6,10 @@ type LoaderData = {
   userListItems: Array<{ id: string; userName: string }>;
 };
 
+
 export const loader: LoaderFunction = async () => {
   const data: LoaderData = {
-    userListItems: await db.user.findMany(),
+    userListItems: await db.user.findMany()
   };
   return data;
 };
