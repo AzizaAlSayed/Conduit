@@ -1,17 +1,16 @@
 {
-  "version": "b84f947b",
+  "version": "96c7cd1f",
   "entry": {
-    "module": "/build/entry.client-H4UYFXG4.js",
+    "module": "/build/entry.client-O2VNANJW.js",
     "imports": [
-      "/build/_shared/chunk-R6TOIQ4O.js",
-      "/build/_shared/chunk-E7VMOUYL.js"
+      "/build/_shared/chunk-SII5VQ3P.js"
     ]
   },
   "routes": {
     "root": {
       "id": "root",
       "path": "",
-      "module": "/build/root-C4CDERVB.js",
+      "module": "/build/root-VYJRAKVQ.js",
       "hasAction": false,
       "hasLoader": false,
       "hasCatchBoundary": true,
@@ -21,9 +20,9 @@
       "id": "routes/home",
       "parentId": "root",
       "path": "home",
-      "module": "/build/routes/home-72AP4XRL.js",
+      "module": "/build/routes/home-QSSJYB35.js",
       "imports": [
-        "/build/_shared/chunk-SMZ7NZN3.js"
+        "/build/_shared/chunk-Q5M3GCKU.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -34,28 +33,25 @@
       "id": "routes/profile",
       "parentId": "root",
       "path": "profile",
-      "module": "/build/routes/profile-4NONQWNU.js",
-      "imports": [
-        "/build/_shared/chunk-O5DKWRR3.js"
-      ],
+      "module": "/build/routes/profile-2LWPFNRS.js",
       "hasAction": false,
       "hasLoader": false,
       "hasCatchBoundary": false,
       "hasErrorBoundary": true
     },
-    "routes/profile/$username": {
-      "id": "routes/profile/$username",
+    "routes/profile/$userName": {
+      "id": "routes/profile/$userName",
       "parentId": "routes/profile",
-      "path": ":username",
-      "module": "/build/routes/profile/$username-QEFEM2JV.js",
+      "path": ":userName",
+      "module": "/build/routes/profile/$userName-MDSAMBLA.js",
       "imports": [
-        "/build/_shared/chunk-SMZ7NZN3.js"
+        "/build/_shared/chunk-Q5M3GCKU.js"
       ],
       "hasAction": false,
       "hasLoader": true,
-      "hasCatchBoundary": false,
+      "hasCatchBoundary": true,
       "hasErrorBoundary": true
     }
   },
-  "url": "/build/manifest-B84F947B.js"
+  "url": "/build/manifest-96C7CD1F.js"
 }

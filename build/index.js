@@ -122,7 +122,8 @@ __export(profile_exports, {
   ErrorBoundary: () => ErrorBoundary2,
   default: () => Profile
 });
-function Profile({ children }) {
+var import_remix3 = __toModule(require("remix"));
+function Profile() {
   return /* @__PURE__ */ React.createElement("div", {
     className: "profile-page"
   }, /* @__PURE__ */ React.createElement("div", {
@@ -136,7 +137,7 @@ function Profile({ children }) {
   }, /* @__PURE__ */ React.createElement("img", {
     src: "https://i.redd.it/a6g2v0xi0pe41.png",
     className: "user-img"
-  }), /* @__PURE__ */ React.createElement("h4", null, " ", children))))), /* @__PURE__ */ React.createElement("div", {
+  }), /* @__PURE__ */ React.createElement(import_remix3.Outlet, null))))), /* @__PURE__ */ React.createElement("div", {
     className: "container"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "row"
@@ -175,15 +176,16 @@ function ErrorBoundary2() {
   }, "I did a whoopsies.");
 }
 
-// route-module:C:\Users\laris\Conduit\app\routes\profile\$username.tsx
-var username_exports = {};
-__export(username_exports, {
+// route-module:C:\Users\laris\Conduit\app\routes\profile\$userName.tsx
+var userName_exports = {};
+__export(userName_exports, {
+  CatchBoundary: () => CatchBoundary2,
   ErrorBoundary: () => ErrorBoundary3,
   default: () => UserProfileRoute,
   loader: () => loader
 });
-var import_remix3 = __toModule(require("remix"));
 var import_remix4 = __toModule(require("remix"));
+var import_remix5 = __toModule(require("remix"));
 
 // app/utils/db.server.ts
 var import_client = __toModule(require("@prisma/client"));
@@ -199,74 +201,39 @@ if (process.env.NODE_ENV === "production") {
   db = global.__db;
 }
 
-// app/routes/profile.tsx
-function Profile2({ children }) {
-  return /* @__PURE__ */ React.createElement("div", {
-    className: "profile-page"
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "user-info"
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "container"
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "row"
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "col-xs-12 col-md-10 offset-md-1"
-  }, /* @__PURE__ */ React.createElement("img", {
-    src: "https://i.redd.it/a6g2v0xi0pe41.png",
-    className: "user-img"
-  }), /* @__PURE__ */ React.createElement("h4", null, " ", children))))), /* @__PURE__ */ React.createElement("div", {
-    className: "container"
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "row"
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "col-xs-12 col-md-10 offset-md-1"
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "articles-toggle"
-  }, /* @__PURE__ */ React.createElement("ul", {
-    className: "nav nav-pills outline-active"
-  }, /* @__PURE__ */ React.createElement("li", {
-    className: "nav-item"
-  }, /* @__PURE__ */ React.createElement("a", {
-    className: "nav-link active",
-    href: ""
-  }, "My Articles")))), /* @__PURE__ */ React.createElement("div", {
-    className: "article-preview"
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "article-meta"
-  }, /* @__PURE__ */ React.createElement("a", {
-    href: ""
-  }, /* @__PURE__ */ React.createElement("img", {
-    src: "https://i.redd.it/a6g2v0xi0pe41.png"
-  })), /* @__PURE__ */ React.createElement("div", {
-    className: "info"
-  }, /* @__PURE__ */ React.createElement("a", {
-    href: "",
-    className: "author"
-  }, "Eric Simons"))), /* @__PURE__ */ React.createElement("a", {
-    href: "",
-    className: "preview-link"
-  }, /* @__PURE__ */ React.createElement("h1", null, "How to build webapps that scale"), /* @__PURE__ */ React.createElement("p", null, "This is the description for the post."), /* @__PURE__ */ React.createElement("span", null, "Read more...")))))));
-}
-
-// route-module:C:\Users\laris\Conduit\app\routes\profile\$username.tsx
+// route-module:C:\Users\laris\Conduit\app\routes\profile\$userName.tsx
 var loader = async ({ params }) => {
   const user = await db.user.findUnique({
-    where: { userName: params.userUserName }
+    where: { userName: params.userName }
   });
-  if (!user)
-    throw new Error("user not found");
+  console.log(user == null ? void 0 : user.userName);
+  if (!user) {
+    throw new Response("user not found", {
+      status: 404
+    });
+  }
   const data = { user };
   return data;
 };
 function UserProfileRoute() {
-  const data = (0, import_remix4.useLoaderData)();
-  return /* @__PURE__ */ React.createElement(Profile2, null, /* @__PURE__ */ React.createElement("h4", null, data.user.userName));
+  const data = (0, import_remix5.useLoaderData)();
+  return /* @__PURE__ */ React.createElement("h4", null, data.user.userName);
+}
+function CatchBoundary2() {
+  const caught = (0, import_remix4.useCatch)();
+  const params = (0, import_remix4.useParams)();
+  if (caught.status === 404) {
+    return /* @__PURE__ */ React.createElement("div", {
+      className: "error-container"
+    }, 'Huh? What the heck is "', params.userName, '"?');
+  }
+  throw new Error(`Unhandled error: ${caught.status}`);
 }
 function ErrorBoundary3() {
-  const { userUserName } = (0, import_remix3.useParams)();
+  const { userName } = (0, import_remix4.useParams)();
   return /* @__PURE__ */ React.createElement("div", {
     className: "error-container"
-  }, `There was an error loading by the id ${userUserName}. Sorry.`);
+  }, `There was an error loading by the id ${userName}. Sorry.`);
 }
 
 // route-module:C:\Users\laris\Conduit\app\routes\home.tsx
@@ -275,7 +242,7 @@ __export(home_exports, {
   default: () => HomeRoute,
   loader: () => loader2
 });
-var import_remix5 = __toModule(require("remix"));
+var import_remix6 = __toModule(require("remix"));
 var loader2 = async () => {
   const data = {
     userListItems: await db.user.findMany()
@@ -283,7 +250,7 @@ var loader2 = async () => {
   return data;
 };
 function HomeRoute() {
-  const data = (0, import_remix5.useLoaderData)();
+  const data = (0, import_remix6.useLoaderData)();
   const users = data.userListItems.map((user) => /* @__PURE__ */ React.createElement("div", {
     key: user.id,
     className: "article-preview"
@@ -301,7 +268,7 @@ function HomeRoute() {
   }, /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("a", {
     href: "",
     className: "author"
-  }, /* @__PURE__ */ React.createElement(import_remix5.Link, {
+  }, /* @__PURE__ */ React.createElement(import_remix6.Link, {
     to: user.id
   }, user.userName))))), /* @__PURE__ */ React.createElement("button", {
     className: "btn btn-outline-primary btn-sm pull-xs-right"
@@ -357,13 +324,13 @@ var routes = {
     caseSensitive: void 0,
     module: profile_exports
   },
-  "routes/profile/$username": {
-    id: "routes/profile/$username",
+  "routes/profile/$userName": {
+    id: "routes/profile/$userName",
     parentId: "routes/profile",
-    path: ":username",
+    path: ":userName",
     index: void 0,
     caseSensitive: void 0,
-    module: username_exports
+    module: userName_exports
   },
   "routes/home": {
     id: "routes/home",

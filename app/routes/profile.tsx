@@ -1,9 +1,6 @@
-import { Link, useLoaderData } from "remix";
-import { LoaderFunction } from "remix";
-import { db } from "~/utils/db.server";
-import type { User } from "@prisma/client";
+import { Outlet } from "remix";
 
-export default function Profile({ children }: { children: React.ReactNode }) {
+export default function Profile() {
   return (
     <div className="profile-page">
       <div className="user-info">
@@ -14,7 +11,7 @@ export default function Profile({ children }: { children: React.ReactNode }) {
                 src="https://i.redd.it/a6g2v0xi0pe41.png"
                 className="user-img"
               />
-              <h4> {children}</h4>
+              <Outlet />
             </div>
           </div>
         </div>
