@@ -230,10 +230,9 @@ function CatchBoundary2() {
   throw new Error(`Unhandled error: ${caught.status}`);
 }
 function ErrorBoundary3() {
-  const { userName } = (0, import_remix4.useParams)();
   return /* @__PURE__ */ React.createElement("div", {
     className: "error-container"
-  }, `There was an error loading by the id ${userName}. Sorry.`);
+  }, `There was an error loading by this username. Sorry.`);
 }
 
 // route-module:C:\Users\laris\Conduit\app\routes\home.tsx

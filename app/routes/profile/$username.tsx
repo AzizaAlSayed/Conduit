@@ -10,7 +10,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const user = await db.user.findUnique({
     where: { userName: params.userName },
   });
-  console.log(user?.userName)
+  console.log(user?.userName);
   if (!user) {
     throw new Response("user not found", {
       status: 404,
@@ -22,11 +22,8 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export default function UserProfileRoute() {
   const data = useLoaderData<LoaderData>();
-  return (
-      <h4>{data.user.userName}</h4>
-  );
+  return <h4>{data.user.userName}</h4>;
 }
-
 
 export function CatchBoundary() {
   const caught = useCatch();
@@ -42,8 +39,7 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary() {
-  const { userName } = useParams();
   return (
-    <div className="error-container">{`There was an error loading by the id ${userName}. Sorry.`}</div>
+    <div className="error-container">{`There was an error loading by this username. Sorry.`}</div>
   );
 }

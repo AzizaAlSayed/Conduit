@@ -1,5 +1,5 @@
 {
-  "version": "96c7cd1f",
+  "version": "41327a93",
   "entry": {
     "module": "/build/entry.client-O2VNANJW.js",
     "imports": [
@@ -43,7 +43,7 @@
       "id": "routes/profile/$userName",
       "parentId": "routes/profile",
       "path": ":userName",
-      "module": "/build/routes/profile/$userName-MDSAMBLA.js",
+      "module": "/build/routes/profile/$userName-NDJMIC7P.js",
       "imports": [
         "/build/_shared/chunk-Q5M3GCKU.js"
       ],
@@ -53,5 +53,5 @@
       "hasErrorBoundary": true
     }
   },
-  "url": "/build/manifest-96C7CD1F.js"
+  "url": "/build/manifest-41327A93.js"
 }
