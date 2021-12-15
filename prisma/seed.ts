@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-const db = new PrismaClient();
+const PrismaDb = new PrismaClient();
 
 async function seed() {
   await Promise.all(
     getUsers().map((user) => {
-      return db.user.create({ data: user });
+      return PrismaDb.user.create({ data: user });
     })
   );
 }
