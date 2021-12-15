@@ -10,7 +10,10 @@ export const loader: LoaderFunction = async ({ params }) => {
   const user = await db.user.findUnique({
     where: { userName: params.userUserName },
   });
-  if (!user) throw new Error("user not found");
+  if (!user)
+    throw new Response("user not found", {
+      status: 404,
+    });
   const data: LoaderData = { user };
   return data;
 };
