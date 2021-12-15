@@ -19,6 +19,7 @@ function Document({
   children: React.ReactNode;
   title?: string;
 }) {
+    
   return (
     <html lang="en">
       <head>
