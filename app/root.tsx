@@ -53,6 +53,7 @@ function Document({
           </div>
         </nav>
         {children}
+        <Scripts />
         {process.env.NODE_ENV === "development" ? <LiveReload /> : null}
       </body>
     </html>
