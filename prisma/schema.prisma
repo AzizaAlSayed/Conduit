@@ -8,8 +8,17 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  userName String
+  userid   String    @id @default(uuid())
+  username String
   password String
   email    String
+  Article  Article[]
+}
+
+model Article {
+  articleid String @id @default(uuid())
+  writerid  String
+  writer    User   @relation(fields: [writerid], references: [userid], onDelete: Cascade)
+  title     String
+  bio       String
 }

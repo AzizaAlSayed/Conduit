@@ -2,32 +2,32 @@ import { PrismaClient } from "@prisma/client";
 const PrismaDb = new PrismaClient();
 
 async function seed() {
+  const kody = await PrismaDb.user.create({
+    data: {
+      username: "kody",
+      password: "$2b$10$K7L1OJ45/4Y2nIvhRVpCe.FSmhDdWoXehVzJptJ/op0lSsvqNu/1u",
+      email: "kody@gmail.com",
+    },
+  });
   await Promise.all(
-    getUsers().map((user) => {
-      return PrismaDb.user.create({ data: user });
+    getArticles().map((article) => {
+      const data = { writerid: kody.userid, ...article };
+      return PrismaDb.article.create({ data });
     })
   );
 }
-
 seed();
 
-function getUsers() {
-  // shout-out to https://icanhazdadjoke.com/
+function getArticles() {
   return [
     {
-      userName: "Mohammad77",
-      email: "mohammad@gmail.com",
-      password: "lll",
+      title: "First Tilte",
+      bio: "this is a bio",
     },
+    { title: "Second Tilte", bio: "this is a bio" },
     {
-      userName: "Sana99",
-      email: "sana@gmail.com",
-      password: "lll",
-    },
-    {
-      userName: "Roua88",
-      email: "roua@gmail.com",
-      password: "lll",
+      title: "Third Tilte",
+      bio: "this is a bio",
     },
   ];
 }
