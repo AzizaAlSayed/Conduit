@@ -11,7 +11,7 @@ model User {
   userid   String    @id @default(uuid())
   username String
   password String
-  email    String
+  email    String    @unique
   Article  Article[]
 }
 

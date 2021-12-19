@@ -1,7 +1,7 @@
 import { ActionFunction, LinksFunction, redirect } from "remix";
 import { useActionData, json, Link, Form, useSearchParams } from "remix";
 import { db } from "~/utils/db.server";
-import stylesUrl from "../styles/login.css";
+import { login, createUserSession } from "~/utils/session.server";
 
 function validateEmailAndPassword(content: string) {
   if (content.length < 4) {
@@ -21,13 +21,18 @@ type ActionData = {
   };
 };
 
-const badRequest = (data: ActionData) => json(data, { status: 400 });
-
+const badRequest = (data: ActionData) => {
+  json(data, { status: 400 });
+};
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
   const email = form.get("email");
   const password = form.get("password");
-  if (typeof email !== "string" || typeof password !== "string") {
+  if (
+    typeof email !== "string" ||
+    typeof password !== "string" ||
+    !(await login({ email, password }))
+  ) {
     return badRequest({
       formError: `the email or the password are not correctly.`,
     });
@@ -41,13 +46,13 @@ export const action: ActionFunction = async ({ request }) => {
   if (Object.values(fieldErrors).some(Boolean)) {
     return badRequest({ fieldErrors, fields });
   }
-
   const user = await db.user.create({ data: { username: "", ...fields } });
-  return redirect(`/home/${user.userid}`);
+  return createUserSession(user.userid, `/home/${user.userid}`);
 };
 
 export default function Login() {
   const actionData = useActionData<ActionData>();
+  const [searchParams] = useSearchParams();
 
   return (
     <div className="auth-page">
