@@ -14,19 +14,20 @@ seed();
 function getUsers() {
   return [
     {
-      id:"jndsn",
+      userid: "jndsn",
       userName: "Mohammad Salem",
-      comment:"it is me"
     },
     {
-      id:"jnassddsn",
+      userid: "jnassddsn",
       userName: "Sana Mohammad",
-      comment:"it is me"
     },
     {
-      id:"uhuhhu",
+      userid: "uhuhhu",
       userName: "Remas Samer",
-      comment:"it is me"
     },
   ];
+}
+
+function getArticles() {
+  return [{}];
 }

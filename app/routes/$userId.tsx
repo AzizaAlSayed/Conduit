@@ -7,7 +7,7 @@ type LoaderData = { user: User };
 
 export const loader: LoaderFunction = async ({ params }) => {
   const user = await db.user.findUnique({
-    where: { id: params.userId },
+    where: { userid: params.userId },
   });
   if (!user) throw new Error("user not found");
   const data: LoaderData = { user };

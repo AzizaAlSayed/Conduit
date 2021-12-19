@@ -21,7 +21,7 @@ export const action: ActionFunction = async ({ request }) => {
   const userInfo = await db.user.create({
     data: fields,
   });
-  return redirect(`/home/${userInfo.id}`);
+  return redirect(`/home/${userInfo.userid}`);
 };
 export default function RegisterRoute() {
   return (

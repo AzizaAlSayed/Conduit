@@ -68,18 +68,24 @@ function handleRequest(request, responseStatusCode, responseHeaders, remixContex
 // route-module:C:\Users\laris\Conduit\app\root.tsx
 var root_exports = {};
 __export(root_exports, {
-  default: () => App
+  CatchBoundary: () => CatchBoundary,
+  ErrorBoundary: () => ErrorBoundary,
+  default: () => App,
+  links: () => links
 });
 var import_remix2 = __toModule(require("remix"));
-function App() {
+var links = () => {
+  return [{ rel: "stylesheet", href: "//demo.productionready.io/main.css" }];
+};
+function Document({
+  children,
+  title = `Conduit`
+}) {
   return /* @__PURE__ */ React.createElement("html", {
     lang: "en"
   }, /* @__PURE__ */ React.createElement("head", null, /* @__PURE__ */ React.createElement("meta", {
     charSet: "utf-8"
-  }), /* @__PURE__ */ React.createElement("title", null, "Remix: So great, it's funny!"), /* @__PURE__ */ React.createElement("link", {
-    rel: "stylesheet",
-    href: "//demo.productionready.io/main.css"
-  })), /* @__PURE__ */ React.createElement("body", null, /* @__PURE__ */ React.createElement("nav", {
+  }), /* @__PURE__ */ React.createElement("title", null, "Conduit"), /* @__PURE__ */ React.createElement(import_remix2.Meta, null), /* @__PURE__ */ React.createElement(import_remix2.Links, null)), /* @__PURE__ */ React.createElement("body", null, /* @__PURE__ */ React.createElement("nav", {
     className: "navbar navbar-light"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "container"
@@ -103,18 +109,32 @@ function App() {
   }, /* @__PURE__ */ React.createElement("a", {
     className: "nav-link",
     href: ""
-  }, "Sign up"))))), /* @__PURE__ */ React.createElement(import_remix2.Outlet, null), process.env.NODE_ENV === "development" ? /* @__PURE__ */ React.createElement(import_remix2.LiveReload, null) : null));
+  }, "Sign up"))))), children, process.env.NODE_ENV === "development" ? /* @__PURE__ */ React.createElement(import_remix2.LiveReload, null) : null));
+}
+function App() {
+  return /* @__PURE__ */ React.createElement(Document, null, /* @__PURE__ */ React.createElement(import_remix2.Outlet, null));
+}
+function ErrorBoundary({ error }) {
+  return /* @__PURE__ */ React.createElement(Document, {
+    title: "Uh-oh!"
+  }, /* @__PURE__ */ React.createElement("h1", null, "App Error"), /* @__PURE__ */ React.createElement("pre", null, error.message));
+}
+function CatchBoundary() {
+  const caught = (0, import_remix2.useCatch)();
+  return /* @__PURE__ */ React.createElement(Document, {
+    title: `${caught.status} ${caught.statusText}`
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "error-container"
+  }, /* @__PURE__ */ React.createElement("h1", null, caught.status, " ", caught.statusText)));
 }
 
-// route-module:C:\Users\laris\Conduit\app\routes\article.tsx
-var article_exports = {};
-__export(article_exports, {
+// route-module:C:\Users\laris\Conduit\app\routes\register.tsx
+var register_exports = {};
+__export(register_exports, {
   action: () => action,
-  default: () => Article,
-  loader: () => loader
+  default: () => RegisterRoute
 });
 var import_remix3 = __toModule(require("remix"));
-var import_remix4 = __toModule(require("remix"));
 
 // app/utils/db.server.ts
 var import_client = __toModule(require("@prisma/client"));
@@ -130,8 +150,103 @@ if (process.env.NODE_ENV === "production") {
   db = global.__db;
 }
 
-// route-module:C:\Users\laris\Conduit\app\routes\article.tsx
+// route-module:C:\Users\laris\Conduit\app\routes\register.tsx
 var action = async ({ request }) => {
+  const form = await request.formData();
+  const userName = form.get("userName");
+  const password = form.get("password");
+  const email = form.get("email");
+  if (typeof userName !== "string" || typeof password !== "string" || typeof email !== "string") {
+    throw new Error(`Form not submitted correctly.`);
+  }
+  const fields = { userName, password, email };
+  const userInfo = await db.user.create({
+    data: fields
+  });
+  return (0, import_remix3.redirect)(`/home/${userInfo.userid}`);
+};
+function RegisterRoute() {
+  return /* @__PURE__ */ React.createElement("div", {
+    className: "auth-page"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "container page"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "row"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "col-md-6 offset-md-3 col-xs-12"
+  }, /* @__PURE__ */ React.createElement("h1", {
+    className: "text-xs-center"
+  }, "Sign up"), /* @__PURE__ */ React.createElement("form", {
+    method: "post"
+  }, /* @__PURE__ */ React.createElement("fieldset", {
+    className: "form-group"
+  }, /* @__PURE__ */ React.createElement("input", {
+    className: "form-control form-control-lg",
+    type: "text",
+    placeholder: "Your Name",
+    name: "userName"
+  })), /* @__PURE__ */ React.createElement("fieldset", {
+    className: "form-group"
+  }, /* @__PURE__ */ React.createElement("input", {
+    className: "form-control form-control-lg",
+    type: "text",
+    placeholder: "Email",
+    name: "email"
+  })), /* @__PURE__ */ React.createElement("fieldset", {
+    className: "form-group"
+  }, /* @__PURE__ */ React.createElement("input", {
+    className: "form-control form-control-lg",
+    type: "password",
+    placeholder: "Password",
+    name: "password"
+  })), /* @__PURE__ */ React.createElement("button", {
+    className: "btn btn-lg btn-primary pull-xs-right",
+    type: "submit"
+  }, "Sign up"))))));
+}
+
+// route-module:C:\Users\laris\Conduit\app\routes\$userId.tsx
+var userId_exports = {};
+__export(userId_exports, {
+  ErrorBoundary: () => ErrorBoundary2,
+  default: () => UserRoute,
+  loader: () => loader
+});
+var import_remix4 = __toModule(require("remix"));
+var import_remix5 = __toModule(require("remix"));
+var loader = async ({ params }) => {
+  const user = await db.user.findUnique({
+    where: { userid: params.userId }
+  });
+  if (!user)
+    throw new Error("user not found");
+  const data = { user };
+  return data;
+};
+function UserRoute() {
+  const data = (0, import_remix5.useLoaderData)();
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(import_remix5.Link, {
+    to: "."
+  }, data.user.userName, " "));
+}
+function ErrorBoundary2() {
+  const { userId } = (0, import_remix4.useParams)();
+  return /* @__PURE__ */ React.createElement("div", {
+    className: "error-container"
+  }, `There was an error loading by the id ${userId}. Sorry.`);
+}
+
+// route-module:C:\Users\laris\Conduit\app\routes\article.tsx
+var article_exports = {};
+__export(article_exports, {
+  ErrorBoundary: () => ErrorBoundary3,
+  action: () => action2,
+  default: () => Article,
+  loader: () => loader2
+});
+var import_remix6 = __toModule(require("remix"));
+var import_remix7 = __toModule(require("remix"));
+var action2 = async ({ request }) => {
   const form = await request.formData();
   const comment = form.get("comment");
   if (typeof comment !== "string") {
@@ -141,16 +256,16 @@ var action = async ({ request }) => {
   const userInfo = await db.user.create({
     data: __spreadValues({ userName: "laraa" }, fields)
   });
-  return (0, import_remix4.redirect)(`/article/${userInfo.id}`);
+  return (0, import_remix7.redirect)(`/article/${userInfo.id}`);
 };
-var loader = async () => {
+var loader2 = async () => {
   const data = {
     userListItems: await db.user.findMany()
   };
   return data;
 };
 function Article() {
-  const data = (0, import_remix3.useLoaderData)();
+  const data = (0, import_remix6.useLoaderData)();
   const users = data.userListItems.map((user) => /* @__PURE__ */ React.createElement("div", {
     className: "card",
     key: user.id
@@ -158,7 +273,7 @@ function Article() {
     className: "card-block"
   }, /* @__PURE__ */ React.createElement("p", {
     className: "card-text"
-  }, /* @__PURE__ */ React.createElement(import_remix3.Link, {
+  }, /* @__PURE__ */ React.createElement(import_remix6.Link, {
     to: user.id
   }, user.comment))), /* @__PURE__ */ React.createElement("div", {
     className: "card-footer"
@@ -171,7 +286,7 @@ function Article() {
   })), "\xA0", /* @__PURE__ */ React.createElement("a", {
     href: "",
     className: "comment-author"
-  }, /* @__PURE__ */ React.createElement(import_remix3.Link, {
+  }, /* @__PURE__ */ React.createElement(import_remix6.Link, {
     to: user.id
   }, user.userName)))));
   return /* @__PURE__ */ React.createElement("div", {
@@ -216,31 +331,27 @@ function Article() {
     type: "submit"
   }, "Post Comment"))), users))));
 }
-
-// route-module:C:\Users\laris\Conduit\app\routes\article\$userId.tsx
-var userId_exports = {};
-__export(userId_exports, {
-  default: () => UserRoute
-});
-function UserRoute() {
-  return /* @__PURE__ */ React.createElement("div", null);
+function ErrorBoundary3() {
+  return /* @__PURE__ */ React.createElement("div", {
+    className: "error-container"
+  }, "Something unexpected went wrong. Sorry about that.");
 }
 
 // route-module:C:\Users\laris\Conduit\app\routes\home.tsx
 var home_exports = {};
 __export(home_exports, {
   default: () => HomeRoute,
-  loader: () => loader2
+  loader: () => loader3
 });
-var import_remix5 = __toModule(require("remix"));
-var loader2 = async () => {
+var import_remix8 = __toModule(require("remix"));
+var loader3 = async () => {
   const data = {
     userListItems: await db.user.findMany()
   };
   return data;
 };
 function HomeRoute() {
-  const data = (0, import_remix5.useLoaderData)();
+  const data = (0, import_remix8.useLoaderData)();
   const users = data.userListItems.map((user) => /* @__PURE__ */ React.createElement("div", {
     key: user.id,
     className: "article-preview"
@@ -258,7 +369,7 @@ function HomeRoute() {
   }, /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("a", {
     href: "",
     className: "author"
-  }, /* @__PURE__ */ React.createElement(import_remix5.Link, {
+  }, /* @__PURE__ */ React.createElement(import_remix8.Link, {
     to: user.id
   }, user.userName)))))), /* @__PURE__ */ React.createElement("a", {
     href: "",
@@ -290,6 +401,15 @@ function HomeRoute() {
   }, "Global Feed")))), users))));
 }
 
+// route-module:C:\Users\laris\Conduit\app\routes\home\$userId.tsx
+var userId_exports2 = {};
+__export(userId_exports2, {
+  default: () => UserRoute2
+});
+function UserRoute2() {
+  return /* @__PURE__ */ React.createElement("div", null);
+}
+
 // <stdin>
 var import_assets = __toModule(require("./assets.json"));
 var entry = { module: entry_server_exports };
@@ -302,6 +422,22 @@ var routes = {
     caseSensitive: void 0,
     module: root_exports
   },
+  "routes/register": {
+    id: "routes/register",
+    parentId: "root",
+    path: "register",
+    index: void 0,
+    caseSensitive: void 0,
+    module: register_exports
+  },
+  "routes/$userId": {
+    id: "routes/$userId",
+    parentId: "root",
+    path: ":userId",
+    index: void 0,
+    caseSensitive: void 0,
+    module: userId_exports
+  },
   "routes/article": {
     id: "routes/article",
     parentId: "root",
@@ -310,14 +446,6 @@ var routes = {
     caseSensitive: void 0,
     module: article_exports
   },
-  "routes/article/$userId": {
-    id: "routes/article/$userId",
-    parentId: "routes/article",
-    path: ":userId",
-    index: void 0,
-    caseSensitive: void 0,
-    module: userId_exports
-  },
   "routes/home": {
     id: "routes/home",
     parentId: "root",
@@ -325,6 +453,14 @@ var routes = {
     index: void 0,
     caseSensitive: void 0,
     module: home_exports
+  },
+  "routes/home/$userId": {
+    id: "routes/home/$userId",
+    parentId: "routes/home",
+    path: ":userId",
+    index: void 0,
+    caseSensitive: void 0,
+    module: userId_exports2
   }
 };
 // Annotate the CommonJS export names for ESM import in node:

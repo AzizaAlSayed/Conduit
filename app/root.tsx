@@ -19,7 +19,6 @@ function Document({
   children: React.ReactNode;
   title?: string;
 }) {
-
   return (
     <html lang="en">
       <head>
@@ -77,15 +76,6 @@ export function ErrorBoundary({ error }: { error: Error }) {
   );
 }
 
-    <Document title="Unexpected Error">
-      <div className="error-messages">
-        <h1>App Error</h1>
-        <pre>{error.message}</pre>
-      </div>
-    </Document>
-  );
-}
-
 export function CatchBoundary() {
   const caught = useCatch();
   return (
@@ -96,6 +86,5 @@ export function CatchBoundary() {
         </h1>
       </div>
     </Document>
-        <Outlet />
   );
 }
