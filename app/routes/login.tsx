@@ -3,7 +3,7 @@ import { useActionData, json, Link, Form, useSearchParams } from "remix";
 import { db } from "~/utils/db.server";
 import stylesUrl from "../styles/login.css";
 
-function validateUsernameAndPassword(content: string) {
+function validateEmailAndPassword(content: string) {
   if (content.length < 4) {
     return `This is too short`;
   }
@@ -12,11 +12,11 @@ function validateUsernameAndPassword(content: string) {
 type ActionData = {
   formError?: string;
   fieldErrors?: {
-    username: string | undefined;
+    email: string | undefined;
     password: string | undefined;
   };
   fields?: {
-    username: string;
+    email: string;
     password: string;
   };
 };
@@ -25,24 +25,24 @@ const badRequest = (data: ActionData) => json(data, { status: 400 });
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
-  const username = form.get("username");
+  const email = form.get("email");
   const password = form.get("password");
-  if (typeof username !== "string" || typeof password !== "string") {
+  if (typeof email !== "string" || typeof password !== "string") {
     return badRequest({
-      formError: `the username or the password are not correctly.`,
+      formError: `the email or the password are not correctly.`,
     });
   }
 
   const fieldErrors = {
-    username: validateUsernameAndPassword(username),
-    password: validateUsernameAndPassword(password),
+    email: validateEmailAndPassword(email),
+    password: validateEmailAndPassword(password),
   };
-  const fields = { username, password };
+  const fields = { email, password };
   if (Object.values(fieldErrors).some(Boolean)) {
     return badRequest({ fieldErrors, fields });
   }
 
-  const user = await db.user.create({ data: { email: "", ...fields } });
+  const user = await db.user.create({ data: { username: "", ...fields } });
   return redirect(`/home/${user.userid}`);
 };
 
@@ -61,22 +61,16 @@ export default function Login() {
                   className="form-control form-control-lg"
                   type="text"
                   placeholder="Email"
-                  name="username"
-                  defaultValue={actionData?.fields?.username}
-                  aria-invalid={Boolean(actionData?.fieldErrors?.username)}
+                  name="email"
+                  defaultValue={actionData?.fields?.email}
+                  aria-invalid={Boolean(actionData?.fieldErrors?.email)}
                   aria-describedby={
-                    actionData?.fieldErrors?.username
-                      ? "username-error"
-                      : undefined
+                    actionData?.fieldErrors?.email ? "email-error" : undefined
                   }
                 />
-                {actionData?.fieldErrors?.username ? (
-                  <p
-                    className="form-validation-error"
-                    role="alert"
-                    id="username-error"
-                  >
-                    {actionData?.fieldErrors.username}
+                {actionData?.fieldErrors?.email ? (
+                  <p className="error-messages" role="alert" id="email-error">
+                    {actionData?.fieldErrors.email}
                   </p>
                 ) : null}
               </fieldset>
@@ -97,7 +91,7 @@ export default function Login() {
                 />
                 {actionData?.fieldErrors?.password ? (
                   <p
-                    className="form-validation-error"
+                    className="error-messages"
                     role="alert"
                     id="password-error"
                   >
