@@ -2,31 +2,30 @@ import { PrismaClient } from "@prisma/client";
 const PrismaDb = new PrismaClient();
 
 async function seed() {
+  const kody = await PrismaDb.user.create({
+    data: {
+      username: "kody",
+    },
+  });
   await Promise.all(
-    getUsers().map((user) => {
-      return PrismaDb.user.create({ data: user });
+    getArticles().map((article) => {
+      const data = { writerid: kody.userid, ...article };
+      return PrismaDb.article.create({ data });
     })
   );
 }
-
 seed();
 
-function getUsers() {
+function getArticles() {
   return [
     {
-      userName: "Mohammad77",
-      email: "mohammad@gmail.com",
-      password: "lll",
+      comment: "this is first comment",
     },
     {
-      userName: "Sana99",
-      email: "sana@gmail.com",
-      password: "lll",
+      comment: "this is second comment",
     },
     {
-      userName: "Roua88",
-      email: "roua@gmail.com",
-      password: "lll",
+      comment: "this is third comment",
     },
   ];
 }

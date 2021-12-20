@@ -4,24 +4,24 @@ import { db } from "~/utils/db.server";
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
-  const userName = form.get("userName");
+  const username = form.get("username");
   const password = form.get("password");
   const email = form.get("email");
 
   if (
-    typeof userName !== "string" ||
+    typeof username !== "string" ||
     typeof password !== "string" ||
     typeof email !== "string"
   ) {
     throw new Error(`Form not submitted correctly.`);
   }
 
-  const fields = { userName, password, email };
+  const fields = { username, password, email };
 
   const userInfo = await db.user.create({
     data: fields,
   });
-  return redirect(`/home/${userInfo.id}`);
+  return redirect(`/home/${userInfo.userid}`);
 };
 export default function RegisterRoute() {
   return (
@@ -36,7 +36,7 @@ export default function RegisterRoute() {
                   className="form-control form-control-lg"
                   type="text"
                   placeholder="Your Name"
-                  name="userName"
+                  name="username"
                 />
               </fieldset>
               <fieldset className="form-group">
@@ -49,6 +49,7 @@ export default function RegisterRoute() {
               </fieldset>
               <fieldset className="form-group">
                 <input
+                
                   className="form-control form-control-lg"
                   type="password"
                   placeholder="Password"

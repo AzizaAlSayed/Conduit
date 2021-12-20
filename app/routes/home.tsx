@@ -3,7 +3,7 @@ import { LoaderFunction } from "remix";
 import { db } from "~/utils/db.server";
 
 type LoaderData = {
-  userListItems: Array<{ id: string; userName: string }>;
+  userListItems: Array<{ userid: string; username: string }>;
 };
 
 export const loader: LoaderFunction = async () => {
@@ -17,7 +17,7 @@ export default function HomeRoute() {
   const data = useLoaderData<LoaderData>();
 
   const users = data.userListItems.map((user) => (
-    <div key={user.id} className="article-preview">
+    <div key={user.userid} className="article-preview">
       <div className="article-meta">
         <a href="profile.html">
           <img src="https://i.redd.it/a6g2v0xi0pe41.png" />
@@ -26,14 +26,11 @@ export default function HomeRoute() {
           <a href="" className="author">
             <p>
               <a href="" className="author">
-                <Link to={user.id}>{user.userName}</Link>
+                <Link to={user.userid}>{user.username}</Link>
               </a>
             </p>
           </a>
         </div>
-        <button className="btn btn-outline-primary btn-sm pull-xs-right">
-          <i className="ion-heart"></i> 29
-        </button>
       </div>
       <a href="" className="preview-link">
         <h1>How to build webapps that scale</h1>

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:C:\\Users\\laris\\Conduit\\app\\routes\\home\\$userId.tsx?browser", "../../../../app/routes/home/$userId.tsx"],
+  "sourcesContent": ["export { default } from \"C:\\\\Users\\\\laris\\\\Conduit\\\\app\\\\routes\\\\home\\\\$userId.tsx\";", "export default function UserRoute() {\r\n  return (<div></div>);\r\n}\r\n"],
+  "mappings": ";;;;;;AAAA;;;ACAA;AAAe,qBAAqB;AAClC,SAAQ,oCAAC,OAAD;AAAA;",
+  "names": []
+}
