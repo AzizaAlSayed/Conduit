@@ -8,24 +8,8 @@ import {
 import { redirect } from "remix";
 import { db } from "~/utils/db.server";
 
-export const action: ActionFunction = async ({ request }) => {
-  const form = await request.formData();
-  const comment = form.get("comment");
-
-  if (typeof comment !== "string") {
-    throw new Error(`Form not submitted correctly.`);
-  }
-
-  const fields = { comment };
-
-  const userInfo = await db.user.create({
-    data: { userName: "laraa", ...fields },
-  });
-  return redirect(`/article/${userInfo.id}`);
-};
-
 type LoaderData = {
-  userListItems: Array<{ id: string; userName: string; comment: string }>;
+  userListItems: Array<{ userid: string; username: string }>;
 };
 
 export const loader: LoaderFunction = async () => {
@@ -35,14 +19,30 @@ export const loader: LoaderFunction = async () => {
   return data;
 };
 
+export const action: ActionFunction = async ({ request }) => {
+  const form = await request.formData();
+  const username = form.get("comment");
+
+  if (typeof username !== "string") {
+    throw new Error(`Form not submitted correctly.`);
+  }
+
+  const fields = { username };
+
+  const userInfo = await db.user.create({
+    data: fields,
+  });
+  return redirect(`/article/${userInfo.userid}`);
+};
+
 export default function Article() {
   const data = useLoaderData<LoaderData>();
 
   const users = data.userListItems.map((user) => (
-    <div className="card" key={user.id}>
+    <div className="card" key={user.userid}>
       <div className="card-block">
         <p className="card-text">
-          <Link to={user.id}>{user.comment}</Link>
+          <Link to={`/article/${user.userid}`}>{user.username}</Link>
         </p>
       </div>
       <div className="card-footer">
@@ -54,7 +54,7 @@ export default function Article() {
         </a>
         &nbsp;
         <a href="" className="comment-author">
-          <Link to={user.id}>{user.userName}</Link>
+          <Link to={`/article/${user.userid}`}>{user.username}</Link>
         </a>
       </div>
     </div>

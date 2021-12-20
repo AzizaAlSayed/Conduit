@@ -9,13 +9,13 @@ datasource db {
 
 model User {
   userid   String    @id @default(uuid())
-  userName String
+  username String    
   articls  Article[]
 }
 
 model Article {
-  articleid Int    @id @default(autoincrement())
+  articleid String @id @default(uuid())
   comment   String
-  writer    User   @relation(fields: [writerId], references: [userid])
-  writerId  String
+  writer    User   @relation(fields: [writerid], references: [userid])
+  writerid  String
 }
